@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehiculos - SigoPark</title>
+    <link rel="stylesheet" href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/layout :: header}"></div>
+    
+    <main class="vehiculos-contenedor">
+        <h1>Vehiculos</h1>
+
+        <form method="gest" th:action="@{/vehiculos}" class="filtro-form">
+            <div class="group-form">
+                <input type="text" name="buscar" th:value="${buscar}"
+                placeholder="Buscar placa..."
+                >
+            </div>
+            <div class="form-gruop">
+                <select name="estado">
+                    <option value="" th:selected="${estado == null}">Todos</option>
+                    <option value="Dentro" th:selected="${estado == 'Dentro'}">Dentro</option>
+                    <option value="Fuera" th:selected="${estado == 'Fuera'}">Fuera</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-secundario">Filtrar</button>
+        </form>
+        <table class="tabla-listado">
+            <thead>
+                <th>Placa</th>
+                <th>Tipo</th>
+                <th>Zona</th>
+                <th>Estado</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+            </thead>
+            <tbody>
+                <tr th:each="v : ${vehiculos}">
+                    <td th:text="${v.placa}">ABC123</td>
+                    <td th:text="${v.tipoVehiculo}">Carro</td>
+                    <td th:text="${v.zonaNombre}">Zona A</td>
+                    <td>
+                        <span class="badge" th:classppend="${v.dentro} ? 'badge-dentro' : 
+                        'badge-fuera'" th:text="${v.dentro} ? 'Dentro' : 'Fuera'"
+                        >Dentro</span>
+                    </td>
+                    <td th:text="${v.horaEntrada}">2026-09-20 08:30</td>
+                    <th th:text="${v.horaSalida == null} ? ${v.horaSalida} : '—'">—</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(vehiculos)}" class="sin-datos">
+            No se encontraron vehiculos
+        </p>
+    </main>
+    <div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

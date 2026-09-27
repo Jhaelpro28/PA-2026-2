@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Entrada - SigoPark</title>
+    <link src="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/layout :: header}"></div>
+
+    <main class="entrada-contenedor">
+        <h1>Registro de entrada</h1>
+        
+        <p th:if="${mensaje}" class="mensaje-exito" th:text="${mensaje}">
+
+        </p>
+        <p th:if="${error}" class="mensaje-error" th:text="${error}"></p>
+
+        <section class="camara-bloque">
+            <h2>Lectura de placa</h2>
+            <div id="camara-contenedor" class="camara-contenedor">
+                <video id="video-camara" autoplay playsinline></video>
+                <p class="camara-estado" id="camara-estado">Camara no iniciada</p>
+            </div>
+            <button type="button" id="btn-captura" class="btn-secundario">Capturar placa</button>
+        </section>
+
+        <form method="post" th:action="@{/entrada}" class="entrada-form">
+            <div class="form-group">
+                <label for="placa">placa</label>
+                <input type="text" id="placa" name="placa" required placeholder="EJ: ABC123" maxlength="10">
+
+            </div>
+            <div class="form-group">
+                <label for="tipoVehiculo">Tipo Vehiculo</label>
+                <select id="tipoVehiuclo" name="tipoVehiculo" required>
+                    <option value="">Seleccione un tipo</option>
+                    <option value="automovil">Automovil</option>
+                    <option value="moto">Moto</option>
+                    <option value="camion">Camion</option>
+                    <option value="bicicleta">Bicicleta</option>
+                </select>
+            </div>
+            <button type="submit" id="btn-primario">Registrar Entrada</button>
+        </form>
+    </main>
+    <div th:replace="~{fragments/layout :: footer}"></div>
+    <script src="@{/js/camara.js}"></script>
+</body>
+</html>
