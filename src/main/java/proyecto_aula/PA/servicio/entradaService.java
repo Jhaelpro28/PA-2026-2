@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import proyecto_aula.PA.modelo.Espacio;
 import proyecto_aula.PA.modelo.Registro;
@@ -14,7 +15,7 @@ import proyecto_aula.PA.repositorio.EspacioRepository;
 import proyecto_aula.PA.repositorio.RegistroRepository;
 import proyecto_aula.PA.repositorio.VehiculoRepository;
 import proyecto_aula.PA.repositorio.ZonaRepository;
-
+@Service 
 public class EntradaService {
     
 

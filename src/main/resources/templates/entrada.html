@@ -34,12 +34,19 @@
             </div>
             <div class="form-group">
                 <label for="tipoVehiculo">Tipo Vehiculo</label>
-                <select id="tipoVehiuclo" name="tipoVehiculo" required>
+                <select id="tipoVehiculo" name="tipoVehiculo" required>
                     <option value="">Seleccione un tipo</option>
-                    <option value="automovil">Automovil</option>
-                    <option value="moto">Moto</option>
-                    <option value="camion">Camion</option>
-                    <option value="bicicleta">Bicicleta</option>
+                    <option value="CARRO">Automovil</option>
+                    <option value="MOTO">Moto</option>
+                    <option value="BICICLETA">Bicicleta</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label from="zonaId">Zona</label>
+                <select id="zonaId" name="zonaId" required>
+                    <option value="">Seleccione una zona</option>
+                    <option th:each="zona : ${zonas}"
+                            th:value="${zona.id}" th:text="${zona.nombre}"></option>
                 </select>
             </div>
             <button type="submit" id="btn-primario">Registrar Entrada</button>

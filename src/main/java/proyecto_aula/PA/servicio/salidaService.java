@@ -1,14 +1,12 @@
 package proyecto_aula.PA.servicio;
-import java.util.*;
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proyecto_aula.PA.modelo.Espacio;
 import proyecto_aula.PA.modelo.Registro;
-import proyecto_aula.PA.modelo.TipoVehiculo;
-import proyecto_aula.PA.modelo.Vehiculo;
-import proyecto_aula.PA.modelo.Zona;
 import proyecto_aula.PA.repositorio.EspacioRepository;
 import proyecto_aula.PA.repositorio.RegistroRepository;
 @Service 
@@ -51,7 +49,7 @@ public class SalidaService {
 
         return registro;
     }
-    private double obtenerTarifa(proyecto_aula.PA.modelo.TipoVehiculo tipo){
+    public double obtenerTarifa(proyecto_aula.PA.modelo.TipoVehiculo tipo){
         switch(tipo){
             case CARRO:
                 return 3000.0;

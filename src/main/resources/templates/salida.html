@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="@{/css/style.css}">
 </head>
 <body>
-    <div th:replace="~{frangments/layout :: header}"></div>
+    <div th:replace="~{fragments/layout :: header}"></div>
     <main class="salida-contenedor">
         <h1>Registro de salida</h1>
 
@@ -33,52 +33,52 @@
         <form method="gest" th:action="@{/salida}" class="buscar-form">
             <div class="group-form">
                 <label for="placaBuscar">Placa</label>
-                <input type="text" id="placaBuscar" name="placaBuscar" required th:value="${placaBuscar}" placeholder="EJ: ABC123" maxlength="10">
+                <input type="text" id="placaBuscar" name="placa" required th:value="${placa}" placeholder="EJ: ABC123" maxlength="10">
 
             </div>
             <button type="submit" class="btn-secundario">Buscar</button>
         </form>
-        <section th:if="${vehiculo !=null}" class="vehiuclo-detalle">
+        <section th:if="${registro !=null}" class="vehiuclo-detalle">
             <h2>Datos de los vehicuclos</h2>
 
             <table class="tabla-detalle">
                 <tr>
                     <td>Placa</td>
-                    <td th:text="${vehiculo.placa}">ABC123</td>
+                    <td th:text="${registro.vehiculo.placa}">ABC123</td>
                 </tr>
                 <tr>
                     <td>vehiculo</td>
-                    <td th:text="${vehiuclo.tipoVehiculo}">Carro</td>
+                    <td th:text="${registro.vehiculo.tipo}">Carro</td>
                 </tr>
                 <tr>
                     <td>Zona</td>
-                    <td th:text="${vehiculo.zonaNombre}">Zona A</td>
+                    <td th:text="${registro.espacio.zona.nombre}">Zona A</td>
                 </tr>
                 <tr>
                     <td>Hora Entrada</td>
-                    <td th:text="${vehiculo.horaEntrada}">2026-09-20 8:30</td>
+                    <td th:text="${registro.horaEntrada}">2026-09-20 8:30</td>
                 </tr>
                 <tr>
                     <td>Hora de salida</td>
-                    <td th:text="${vehiculo.horaSalida}">2026-09-20 10:45</td>
+                    <td th:text="${registro.horaSalida}">2026-09-20 10:45</td>
                 </tr>
                 <tr>
                     <td>Tiempo Transcurrido</td>
-                    <td th:text="${vehiculo.tiempoTranscurrido}">2h:15min</td>
+                    <td th:text="${tiempoTranscurrido}">2h:15min</td>
                 </tr>
                 <tr>
                     <td>Valor a pagar</td>
-                    <td th:text="${vehiculo.valorPagar}">$5,000</td>
+                    <td th:text="${valorPagar}">$5,000</td>
                 </tr>
             </table>
             <form method="post" th:action="@{/salida/confirmar}">
-                <input type="hidden" name="placa" th:value="${vehiculo.placa}">
+                <input type="hidden" name="placa" th:value="${registro.vehiculo.placa}">
                 <button type="submit" class="btn-primario">Confirmar Salida</button>
             </form>
         </section>
 
     </main>
-    <div th:replace="~{frangments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout :: footer}"></div>
 
     <script th:src="@{/js/camara.js}"></script>
 </body>

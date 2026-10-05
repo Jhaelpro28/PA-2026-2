@@ -28,13 +28,14 @@
         </section>
 
         <section th:each="zona : ${zonas}" class="zona-bloque">
-            <h2 th:text="${zona-nombre}">Nombre de la zona</h2>
+            <h2 th:text="${zona.nombre}">Nombre de la zona</h2>
 
             <div class="espacio-grid">
                 <div th:each="espacio : ${zona.espacios}" class="espacio-item"
                     th:classappend="${espacio.ocupado} ? 'ocuapdo' : 'disponible'">
+                    <span th:text="${espacio.numero}">1</span>
                 </div>
-                <span th:text="${espacio.numero}">1</span>
+                
             </div>
 
         </section>
