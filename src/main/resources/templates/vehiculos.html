@@ -21,8 +21,8 @@
             <div class="form-gruop">
                 <select name="estado">
                     <option value="" th:selected="${estado == null}">Todos</option>
-                    <option value="Dentro" th:selected="${estado == 'Dentro'}">Dentro</option>
-                    <option value="Fuera" th:selected="${estado == 'Fuera'}">Fuera</option>
+                    <option value="DENTRO" th:selected="${estado == 'DENTRO'}">Dentro</option>
+                    <option value="FUERA" th:selected="${estado == 'FUERA'}">Fuera</option>
                 </select>
             </div>
             <button type="submit" class="btn-secundario">Filtrar</button>
@@ -37,22 +37,22 @@
                 <th>Salida</th>
             </thead>
             <tbody>
-                <tr th:each="v : ${vehiculos}">
-                    <td th:text="${v.placa}">ABC123</td>
-                    <td th:text="${v.tipoVehiculo}">Carro</td>
-                    <td th:text="${v.zonaNombre}">Zona A</td>
+                <tr th:each="r : ${registros}">
+                    <td th:text="${r.vehiculo.placa}">ABC123</td>
+                    <td th:text="${r.vehiculo.tipo}">Carro</td>
+                    <td th:text="${r.espacio.zona.nombre}">Zona A</td>
                     <td>
-                        <span class="badge" th:classppend="${v.dentro} ? 'badge-dentro' : 
-                        'badge-fuera'" th:text="${v.dentro} ? 'Dentro' : 'Fuera'"
+                        <span class="badge" th:classppend="${r.horaSalida == null} ? 'badge-dentro' : 
+                        'badge-fuera'" th:text="${r.horaSalida == null} ? 'Dentro' : 'Fuera'"
                         >Dentro</span>
                     </td>
-                    <td th:text="${v.horaEntrada}">2026-09-20 08:30</td>
-                    <th th:text="${v.horaSalida == null} ? ${v.horaSalida} : '—'">—</th>
+                    <td th:text="${#temporals.format(r.horaEntrada, 'dd/MM/yyyy HH:mm')}">04/10/2026 11:20</td>
+                    <td th:text="${r.horaSalida != null} ? ${#temporals.format(r.horaSalida, 'dd/MM/yyyy HH:mm')} : '—'">—</td>
                 </tr>
             </tbody>
         </table>
 
-        <p th:if="${#lists.isEmpty(vehiculos)}" class="sin-datos">
+        <p th:if="${#lists.isEmpty(registros)}" class="sin-datos">
             No se encontraron vehiculos
         </p>
     </main>
