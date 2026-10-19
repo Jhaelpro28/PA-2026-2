@@ -22,7 +22,7 @@
                 <li><a th:href="@{/resumen}">Resumen</a></li>
             </ul>
             <div class="navbar-user">
-                <span th:text="${usuario}">Usuario</span>
+                <span th:text="${session.usuario}">Usuario</span>
                 <a th:href="@{/logout}">Cerrar sesion</a>
             </div>
         </nav>

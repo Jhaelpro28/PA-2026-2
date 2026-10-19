@@ -26,6 +26,6 @@ public class OcupacionController {
         model.addAttribute("espaciosOcupados", ocupacionService.contarOcupados());
         model.addAttribute("espaciosDisponibles", ocupacionService.contarDisponibles());
         model.addAttribute("zonas", zonas);
-        return "ocupacion";
+        return "view/ocupacion";
     }
 }

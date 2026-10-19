@@ -1,11 +1,14 @@
 package proyecto_aula.PA.controlador;
-import proyecto_aula.PA.modelo.Usuario;
-import  proyecto_aula.PA.repositorio.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import jakarta.servlet.http.HttpSession;
+import  org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
+import proyecto_aula.PA.modelo.Usuario;
+import proyecto_aula.PA.repositorio.UsuarioRepository;
 
 @Controller 
 public class AuthController {
@@ -18,7 +21,7 @@ public class AuthController {
     }
     @GetMapping("/login")
     public String mostrarLogin(){
-        return "login";
+        return "view/login";
     }
     @PostMapping("/login")
     public String login(@RequestParam String usuario, @RequestParam String password, HttpSession session, Model model)
@@ -26,7 +29,7 @@ public class AuthController {
         Usuario u = usuarioRepository.findByUsername(usuario);
         if(u == null || !u.getPassword().equals(password)){
             model.addAttribute("error", "Usuario o contraseña incorrecta");
-            return "login";
+            return "view/login";
         }
         session.setAttribute("usuario", u.getNombre());
         return "redirect:/ocupacion";

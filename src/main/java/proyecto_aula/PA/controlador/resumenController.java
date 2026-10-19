@@ -1,21 +1,19 @@
 package proyecto_aula.PA.controlador;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-
-import proyecto_aula.PA.repositorio.RegistroRepository;
-
-import java.util.*;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import proyecto_aula.PA.modelo.Registro;
-
-import java.time.*;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import proyecto_aula.PA.repositorio.RegistroRepository;
 @Controller 
 public class ResumenController {
     
@@ -57,6 +55,6 @@ public class ResumenController {
         model.addAttribute("desde", desde);
         model.addAttribute("hasta", hasta);   
         
-        return "resumen";
+        return "view/resumen";
     }
 }

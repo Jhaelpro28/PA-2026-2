@@ -25,7 +25,7 @@ public class EntradaController {
     public String mostrarFormulario(Model model){
         List<Zona> zonas = zonaRepository.findAll();
         model.addAttribute("zonas", zonas);
-        return "entrada";
+        return "view/entrada";
     }
     @PostMapping("/entrada")
     public String registrarEntrada(
@@ -40,10 +40,10 @@ public class EntradaController {
 
         if(registro == null){
             model.addAttribute("error", "No hay espacio disponible en la zona seleccionada.");
-            return "entrada";
+            return "view/entrada";
         } else {
             model.addAttribute("mensaje", "Entrada registrada exitosamente. ID de registro: " + registro.getId());
-            return "entrada";
+            return "view/entrada";
         }
     }
     

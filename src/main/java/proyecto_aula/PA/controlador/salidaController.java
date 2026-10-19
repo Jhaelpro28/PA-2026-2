@@ -43,7 +43,7 @@ public class SalidaController {
             model.addAttribute("placaBuscada", placa);
 
         }
-        return "salida";
+        return "view/salida";
     }
 
     @PostMapping("/salida/confirmar")
