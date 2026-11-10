@@ -1,0 +1,27 @@
+.escaner-info { background: var(--asphalt-700); border-color: var(--line-500); color: var(--text-100); }
+.escaner-info.aviso { background: #3A2F10; border-color: var(--yellow); }
+.escaner-info.error { background: var(--red-dim); border-color: var(--red); color: var(--red-text); }
+.escaner-avisos { color: var(--yellow); }
+.camara-estado.error { color: var(--red-text); }
+.camara-estado.ok { color: var(--green-text); }
+.escaner-subir {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid var(--line-500);
+    border-radius: 2px;
+    color: var(--text-100);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.12s ease;
+}
+
+.escaner-subir:hover {
+    border-color: var(--text-300);
+}
+
+.escaner-subir:focus-within {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+}

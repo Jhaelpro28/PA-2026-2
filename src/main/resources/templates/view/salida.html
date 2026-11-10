@@ -1,85 +1,55 @@
 <!DOCTYPE html>
-<html lang="es" xmls:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de salida - SigoPark</title>
-    <link rel="stylesheet" href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/base.css" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="../../static/css/salida.css" th:href="@{/css/salida.css}">
 </head>
 <body>
+
     <div th:replace="~{fragments/layout :: header}"></div>
-    <main class="salida-contenedor">
+
+    <main>
         <h1>Registro de salida</h1>
 
-        <p th:if="${mensaje}" class="mensaje-exito" th:text="${mensaje}">
-            Registro de salida correctamente
-        </p>
-
-        <p th:if="${error}" class="mensaje-error" th:text="${error}">
-            No se encontro vehiculo con esta placa
-        </p>
+        <p th:if="${mensaje}" class="mensaje-exito" th:text="${mensaje}">Salida registrada.</p>
+        <p th:if="${error}" class="mensaje-error" th:text="${error}">No se encontró un vehículo con esa placa.</p>
 
         <section class="camara-bloque">
             <h2>Lectura de placa</h2>
-            <div id="camara-contenedor" class="camara-contendor">
-                <video id="video-camara" autoplay playsinline></video>
-                <p class="camara-estado" id="camara-estado"> Camara no iniciada</p>
-            </div>
-            <button type="button" id="btn-secundario" class="btn-secundario">
-                Capturar placa
-            </button>
-        </section>
-        
-        <form method="gest" th:action="@{/salida}" class="buscar-form">
-            <div class="group-form">
-                <label for="placaBuscar">Placa</label>
-                <input type="text" id="placaBuscar" name="placa" required th:value="${placa}" placeholder="EJ: ABC123" maxlength="10">
+            <div th:replace="~{fragments/escaner :: escaner('entrada', '#placa')}"></div>
 
+        <form method="get" th:action="@{/salida}" class="filtro-form">
+            <div class="form-group">
+                <label for="placa">Placa</label>
+                <input type="text" id="placa" name="placa" th:value="${placaBuscada}" placeholder="EJ: ABC123" required>
             </div>
-            <button type="submit" class="btn-secundario">Buscar</button>
+            <button type="submit">Buscar</button>
         </form>
-        <section th:if="${registro !=null}" class="vehiuclo-detalle">
-            <h2>Datos de los vehicuclos</h2>
 
+        <section th:if="${registro != null}">
+            <h2>Datos de la estancia</h2>
             <table class="tabla-detalle">
-                <tr>
-                    <td>Placa</td>
-                    <td th:text="${registro.vehiculo.placa}">ABC123</td>
-                </tr>
-                <tr>
-                    <td>vehiculo</td>
-                    <td th:text="${registro.vehiculo.tipo}">Carro</td>
-                </tr>
-                <tr>
-                    <td>Zona</td>
-                    <td th:text="${registro.espacio.zona.nombre}">Zona A</td>
-                </tr>
-                <tr>
-                    <td>Hora Entrada</td>
-                    <td th:text="${registro.horaEntrada}">2026-09-20 8:30</td>
-                </tr>
-                <tr>
-                    <td>Hora de salida</td>
-                    <td th:text="${registro.horaSalida}">2026-09-20 10:45</td>
-                </tr>
-                <tr>
-                    <td>Tiempo Transcurrido</td>
-                    <td th:text="${tiempoTranscurrido}">2h:15min</td>
-                </tr>
-                <tr>
-                    <td>Valor a pagar</td>
-                    <td th:text="${valorPagar}">$5,000</td>
-                </tr>
+                <tbody>
+                    <tr><td>Placa</td><td th:text="${registro.vehiculo.placa}">ABC123</td></tr>
+                    <tr><td>Tipo</td><td th:text="${registro.vehiculo.tipo}">CARRO</td></tr>
+                    <tr><td>Zona</td><td th:text="${registro.espacio.zona.nombre}">Zona</td></tr>
+                    <tr><td>Hora de entrada</td><td th:text="${#temporals.format(registro.horaEntrada, 'dd/MM/yyyy HH:mm')}">01/01/2026 08:00</td></tr>
+                    <tr><td>Tiempo transcurrido</td><td th:text="${tiempoTranscurrido}">1h (estimada)</td></tr>
+                    <tr><td>Valor a pagar</td><td th:text="'$' + ${#numbers.formatInteger(valorPagar, 1, 'POINT')}">$3.000</td></tr>
+                </tbody>
             </table>
+
             <form method="post" th:action="@{/salida/confirmar}">
                 <input type="hidden" name="placa" th:value="${registro.vehiculo.placa}">
-                <button type="submit" class="btn-primario">Confirmar Salida</button>
+                <button type="submit" class="btn-primario">Confirmar salida</button>
             </form>
         </section>
-
     </main>
-    <div th:replace="~{fragments/layout :: footer}"></div>
 
+    <div th:replace="~{fragments/layout :: footer}"></div>
     <script th:src="@{/js/camara.js}"></script>
 </body>
 </html>

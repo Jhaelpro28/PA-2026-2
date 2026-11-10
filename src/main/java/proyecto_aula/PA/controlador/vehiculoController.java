@@ -1,10 +1,13 @@
 package proyecto_aula.PA.controlador;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import proyecto_aula.PA.modelo.Registro;
 import proyecto_aula.PA.repositorio.RegistroRepository;
 
@@ -36,7 +39,7 @@ public class VehiculoController {
             model.addAttribute("registros", filtrados);
             model.addAttribute("buscar", buscar);
             model.addAttribute("estado", estado);
-            return "/vehiculos";
+            return "view/vehiculos";
         }
     
 }

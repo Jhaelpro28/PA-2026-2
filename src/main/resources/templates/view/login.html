@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesion - SigoPark</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <title>Iniciar sesión - SigoPark</title>
+    <link rel="stylesheet" href="../../static/css/base.css" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="../../static/css/login.css" th:href="@{/css/login.css}">
 </head>
 <body class="login-body">
-    <main clas="login-contenedor">
-        <div clas="login-box">
-            <img th:src="@{/img/logo.png}" alt="SigoPark" class="login-logo">
+
+    <main class="login-container">
+        <div class="login-box">
             <h1>SigoPark</h1>
-            <p class="login-subtitulos">Sistema gestion de parqueo</p>
+            <p class="login-subtitle">Sistema de gestión de parqueadero</p>
 
-            <p th:if="${error}" class="login-error" th:text="${error}">Usuario o contraseña son incorrectos</p>
+            <p th:if="${error}" class="login-error" th:text="${error}">Usuario o contraseña incorrectos</p>
 
-            <form method="post" th:action="@{/login}" clas="login-form">
+            <form method="post" th:action="@{/login}" class="login-form">
                 <div class="form-group">
                     <label for="usuario">Usuario</label>
                     <input type="text" id="usuario" name="usuario" required autofocus>
@@ -28,6 +29,8 @@
             </form>
         </div>
     </main>
+
     <div th:replace="~{fragments/layout :: footer}"></div>
+
 </body>
 </html>

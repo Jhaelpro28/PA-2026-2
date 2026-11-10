@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ocupacion - SigoPark</title>
-    <link rel="stylesheet" href="@{/css/style.css}">
+    <title>Ocupación - SigoPark</title>
+    <link rel="stylesheet" href="../../static/css/base.css" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="../../static/css/ocupacion.css" th:href="@{/css/ocupacion.css}">
 </head>
 <body>
+
     <div th:replace="~{fragments/layout :: header}"></div>
 
     <main class="ocupacion-contenedor">
-        <h1>Ocupacion parqueo</h1>
+        <h1>Ocupación parqueo</h1>
 
         <section class="resumen-cards">
             <div class="card card-total">
-                <span class="card-numero" th:text="${totalEspacio}">0</span>
-                <span class="card-label">Espacio totales</span>
+                <span class="card-numero" th:text="${totalEspacios}">0</span>
+                <span class="card-label">Espacios totales</span>
             </div>
             <div class="card card-ocupados">
                 <span class="card-numero" th:text="${espaciosOcupados}">0</span>
@@ -29,20 +31,18 @@
 
         <section th:each="zona : ${zonas}" class="zona-bloque">
             <h2 th:text="${zona.nombre}">Nombre de la zona</h2>
-
             <div class="espacio-grid">
                 <div th:each="espacio : ${zona.espacios}" class="espacio-item"
-                    th:classappend="${espacio.ocupado} ? 'ocuapdo' : 'disponible'">
+                     th:classappend="${espacio.ocupado} ? 'ocupado' : 'disponible'">
                     <span th:text="${espacio.numero}">1</span>
                 </div>
-                
             </div>
-
         </section>
-        <p th:if="${#lists.isEmpty(zonas)}" class="sin-datos">
-            No hay zonas registrada todavia
-        </p>
+
+        <p th:if="${#lists.isEmpty(zonas)}" class="sin-datos">No hay zonas registradas todavía</p>
     </main>
+
     <div th:replace="~{fragments/layout :: footer}"></div>
+
 </body>
 </html>

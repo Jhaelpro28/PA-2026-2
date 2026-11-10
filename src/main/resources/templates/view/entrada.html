@@ -3,56 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Entrada - SigoPark</title>
-    <link src="stylesheet" th:href="@{/css/style.css}">
+    <title>Registro de entrada - SigoPark</title>
+    <link rel="stylesheet" href="../../static/css/base.css" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="../../static/css/entrada.css" th:href="@{/css/entrada.css}">
 </head>
 <body>
+
     <div th:replace="~{fragments/layout :: header}"></div>
 
-    <main class="entrada-contenedor">
+    <main>
         <h1>Registro de entrada</h1>
+
+        <p th:if="${mensaje}" class="mensaje-exito" th:text="${mensaje}">Vehículo registrado correctamente.</p>
+        <p th:if="${error}" class="mensaje-error" th:text="${error}">No se pudo registrar la entrada.</p>
+
         
-        <p th:if="${mensaje}" class="mensaje-exito" th:text="${mensaje}">
+        <div th:replace="~{fragments/escaner :: escaner('entrada', '#placa')}"></div>
 
-        </p>
-        <p th:if="${error}" class="mensaje-error" th:text="${error}"></p>
 
-        <section class="camara-bloque">
-            <h2>Lectura de placa</h2>
-            <div id="camara-contenedor" class="camara-contenedor">
-                <video id="video-camara" autoplay playsinline></video>
-                <p class="camara-estado" id="camara-estado">Camara no iniciada</p>
-            </div>
-            <button type="button" id="btn-captura" class="btn-secundario">Capturar placa</button>
-        </section>
-
-        <form method="post" th:action="@{/entrada}" class="entrada-form">
+        <form method="post" th:action="@{/entrada}">
             <div class="form-group">
-                <label for="placa">placa</label>
-                <input type="text" id="placa" name="placa" required placeholder="EJ: ABC123" maxlength="10">
-
+                <label for="placa">Placa</label>
+                <input type="text" id="placa" name="placa" placeholder="EJ: ABC123" required>
             </div>
             <div class="form-group">
-                <label for="tipoVehiculo">Tipo Vehiculo</label>
+                <label for="tipoVehiculo">Tipo de vehículo</label>
                 <select id="tipoVehiculo" name="tipoVehiculo" required>
                     <option value="">Seleccione un tipo</option>
-                    <option value="CARRO">Automovil</option>
+                    <option value="CARRO">Carro</option>
                     <option value="MOTO">Moto</option>
                     <option value="BICICLETA">Bicicleta</option>
                 </select>
             </div>
             <div class="form-group">
-                <label from="zonaId">Zona</label>
+                <label for="zonaId">Zona</label>
                 <select id="zonaId" name="zonaId" required>
                     <option value="">Seleccione una zona</option>
-                    <option th:each="zona : ${zonas}"
-                            th:value="${zona.id}" th:text="${zona.nombre}"></option>
+                    <option th:each="zona : ${zonas}" th:value="${zona.id}" th:text="${zona.nombre}">Zona</option>
                 </select>
             </div>
-            <button type="submit" id="btn-primario">Registrar Entrada</button>
+            <button type="submit" class="btn-primario">Registrar entrada</button>
         </form>
     </main>
+
     <div th:replace="~{fragments/layout :: footer}"></div>
-    <script src="@{/js/camara.js}"></script>
+    <script th:src="@{/js/camara.js}"></script>
+
 </body>
 </html>

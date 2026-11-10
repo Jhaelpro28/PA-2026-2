@@ -1,0 +1,44 @@
+
+.resumen-contenedor .card-ocupados .card-numero {
+    color: var(--yellow);
+}
+
+.barra-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.barra-label {
+    flex-shrink: 0;
+    width: 170px;
+    color: var(--text-300);
+    font-size: 14px;
+}
+
+.barra-fondo {
+    flex: 1;
+    height: 9px;
+    background: var(--asphalt-700);
+    border: 1px solid var(--line-600);
+}
+
+.barra-relleno {
+    height: 100%;
+    background: var(--yellow);
+}
+
+.barra-valor {
+    width: 44px;
+    color: var(--text-500);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-align: right;
+}
+
+@media (max-width: 820px) {
+    .barra-label {
+        width: 110px;
+    }
+}

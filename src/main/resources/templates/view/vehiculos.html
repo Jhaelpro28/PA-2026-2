@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehiculos - SigoPark</title>
-    <link rel="stylesheet" href="@{/css/style.css}">
+    <title>Vehículos - SigoPark</title>
+    <link rel="stylesheet" href="../../static/css/base.css" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="../../static/css/vehiculos.css" th:href="@{/css/vehiculos.css}">
 </head>
 <body>
-    <div th:replace="~{fragments/layout :: header}"></div>
-    
-    <main class="vehiculos-contenedor">
-        <h1>Vehiculos</h1>
 
-        <form method="gest" th:action="@{/vehiculos}" class="filtro-form">
-            <div class="group-form">
-                <input type="text" name="buscar" th:value="${buscar}"
-                placeholder="Buscar placa..."
-                >
+    <div th:replace="~{fragments/layout :: header}"></div>
+
+    <main class="vehiculos-contenedor">
+        <h1>Vehículos</h1>
+
+        <form method="get" th:action="@{/vehiculos}" class="filtro-form">
+            <div class="form-group">
+                <input type="text" name="buscar" th:value="${buscar}" placeholder="Buscar placa...">
             </div>
-            <div class="form-gruop">
+            <div class="form-group">
                 <select name="estado">
                     <option value="" th:selected="${estado == null}">Todos</option>
                     <option value="DENTRO" th:selected="${estado == 'DENTRO'}">Dentro</option>
@@ -27,35 +27,38 @@
             </div>
             <button type="submit" class="btn-secundario">Filtrar</button>
         </form>
+
         <table class="tabla-listado">
             <thead>
-                <th>Placa</th>
-                <th>Tipo</th>
-                <th>Zona</th>
-                <th>Estado</th>
-                <th>Entrada</th>
-                <th>Salida</th>
+                <tr>
+                    <th>Placa</th>
+                    <th>Tipo</th>
+                    <th>Zona</th>
+                    <th>Estado</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                </tr>
             </thead>
             <tbody>
                 <tr th:each="r : ${registros}">
                     <td th:text="${r.vehiculo.placa}">ABC123</td>
-                    <td th:text="${r.vehiculo.tipo}">Carro</td>
-                    <td th:text="${r.espacio.zona.nombre}">Zona A</td>
+                    <td th:text="${r.vehiculo.tipo}">CARRO</td>
+                    <td th:text="${r.espacio.zona.nombre}">Zona</td>
                     <td>
-                        <span class="badge" th:classppend="${r.horaSalida == null} ? 'badge-dentro' : 
-                        'badge-fuera'" th:text="${r.horaSalida == null} ? 'Dentro' : 'Fuera'"
-                        >Dentro</span>
+                        <span class="badge"
+                              th:classappend="${r.horaSalida == null} ? 'badge-dentro' : 'badge-fuera'"
+                              th:text="${r.horaSalida == null} ? 'Dentro' : 'Fuera'">Dentro</span>
                     </td>
-                    <td th:text="${#temporals.format(r.horaEntrada, 'dd/MM/yyyy HH:mm')}">04/10/2026 11:20</td>
+                    <td th:text="${#temporals.format(r.horaEntrada, 'dd/MM/yyyy HH:mm')}">01/01/2026 08:00</td>
                     <td th:text="${r.horaSalida != null} ? ${#temporals.format(r.horaSalida, 'dd/MM/yyyy HH:mm')} : '—'">—</td>
                 </tr>
             </tbody>
         </table>
 
-        <p th:if="${#lists.isEmpty(registros)}" class="sin-datos">
-            No se encontraron vehiculos
-        </p>
+        <p th:if="${#lists.isEmpty(registros)}" class="sin-datos">No se encontraron vehículos</p>
     </main>
+
     <div th:replace="~{fragments/layout :: footer}"></div>
+
 </body>
 </html>

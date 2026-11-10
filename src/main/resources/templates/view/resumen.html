@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resumen - SigoPark</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/base.css" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="../../static/css/resumen.css" th:href="@{/css/resumen.css}">
 </head>
 <body>
+
     <div th:replace="~{fragments/layout :: header}"></div>
 
     <main class="resumen-contenedor">
@@ -24,55 +26,23 @@
             <button type="submit" class="btn-secundario">Filtrar</button>
         </form>
 
-        <section class="resumen-card">
+        <section class="resumen-cards">
             <div class="card card-total">
                 <span class="card-numero" th:text="${totalVehiculos}">0</span>
-                <span class="card-label">Vehiculos atendidos</span>
+                <span class="card-label">Vehículos atendidos</span>
             </div>
             <div class="card card-ocupados">
-                <span class="card-numero" th:text="${totalRecaudo}">$0</span>
+                <span class="card-numero" th:text="'$' + ${#numbers.formatInteger(totalRecaudo, 1, 'POINT')}">$0</span>
                 <span class="card-label">Recaudo total</span>
             </div>
             <div class="card card-disponibles">
-                <span class="card-numero" th:text="${promedioEstancia}">0h</span>
+                <span class="card-numero" th:text="${promedioEstancia}">0h 0m</span>
                 <span class="card-label">Promedio de estancia</span>
             </div>
         </section>
-
-        
-        <section class="zona-bloque">
-            <h2>Ocupacion por zona</h2>
-            <div th:each="zona : ${resumenZonas}" class="barra-item">
-                <span class="barra-label" th:text="${zona.nombre}">Zona A</span>
-                <div class="barra-fondo">
-                    <div class="barra-relleno" th:style="'width: ' + ${zona.porcentajeOcupacion} + '%'"></div>
-                </div>
-                <span class="barra-valor" th:text="${zona.porcentajeOcupacion} + '%'">0%</span>
-            </div>
-        </section>
-
-        <section class="zona-bloque">
-            <h2>Recaudo por dia</h2>
-            <table class="tabla-listado">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Vehiculos</th>
-                        <th>Recaudo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="dia : ${recaudoPorDia}">
-                        <td th:text="${dia.fecha}">2026-09-20</td>
-                        <td th:text="${dia.cantidadVehiculos}">0</td>
-                        <td th:text="${dia.recaudo}">$0</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
     </main>
 
     <div th:replace="~{fragments/layout :: footer}"></div>
+
 </body>
 </html>

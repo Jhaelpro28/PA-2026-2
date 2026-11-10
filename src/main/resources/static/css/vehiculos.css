@@ -1,0 +1,35 @@
+
+
+.tabla-listado td:first-child {
+    font-family: var(--font-mono);
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border: 1px solid;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-dentro {
+    background: var(--green-dim);
+    color: var(--green-text);
+    border-color: var(--green);
+}
+
+.badge-fuera {
+    background: var(--asphalt-700);
+    color: var(--text-500);
+    border-color: var(--line-500);
+}
+
+@media (max-width: 820px) {
+    .tabla-listado {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

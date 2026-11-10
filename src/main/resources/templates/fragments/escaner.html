@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--
+  Componente reutilizable "Escanear placa".
+  Uso:  <div th:replace="~{fragments/escaner :: escaner('entrada','#placa')}"></div>
+    modo    : entrada | salida | vehiculos  (decide que hacer con la placa reconocida)
+    destino : selector CSS del campo de la pagina donde se escribe la placa
+  La logica esta en /js/camara.js
+-->
+<section th:fragment="escaner(modo, destino)" class="camara-bloque escaner-placa"
+         th:attr="data-modo=${modo},data-destino=${destino},data-url-reconocer=@{/api/placas/reconocer},data-url-consultar=@{/api/placas/consultar},data-url-entrada=@{/entrada},data-url-salida=@{/salida},data-url-vehiculos=@{/vehiculos}">
+    <link rel="stylesheet" th:href="@{/css/escaner-placa.css}">
+
+    <div class="escaner-acciones">
+        <button type="button" class="btn-secundario" data-accion="abrir-camara">Escanear placa</button>
+        <label class="btn-secundario escaner-subir">
+            Subir imagen
+            <input type="file" accept="image/*" data-accion="subir" hidden>
+        </label>
+    </div>
+
+    <div id="camara-contenedor" class="camara-contenedor escaner-camara" hidden>
+        <video id="video-camara" autoplay playsinline muted></video>
+        <div class="escaner-guia" aria-hidden="true"></div>
+        <div class="escaner-acciones">
+            <button type="button" id="btn-captura" class="btn-secundario" data-accion="tomar-foto">Tomar foto</button>
+            <button type="button" class="btn-secundario" data-accion="cerrar-camara">Cerrar cámara</button>
+        </div>
+    </div>
+    <p class="camara-estado" id="camara-estado" role="status">Cámara no iniciada. Pulse "Escanear placa" o suba una imagen.</p>
+
+    <div class="escaner-resultado" data-zona="resultado" hidden>
+        <img data-zona="vista-previa" alt="Foto capturada" class="escaner-vista">
+        <div class="escaner-verificar">
+            <label for="placa-reconocida">Placa reconocida (verifique y corrija si es necesario)</label>
+            <input type="text" id="placa-reconocida" maxlength="7" autocomplete="off"
+                   placeholder="ABC123" data-zona="placa-reconocida">
+            <button type="button" class="btn-secundario" data-accion="confirmar">Confirmar placa</button>
+        </div>
+        <ul class="escaner-avisos" data-zona="avisos"></ul>
+        <div class="escaner-info" data-zona="info" hidden></div>
+    </div>
+</section>
+</body>
+</html>

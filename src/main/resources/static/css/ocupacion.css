@@ -1,0 +1,46 @@
+/* Pagina de ocupacion (templates/view/ocupacion.html): zonas y espacios.
+   Enlazar despues de base.css. */
+
+.ocupacion-contenedor .card-ocupados .card-numero {
+    color: var(--red-text);
+}
+
+.ocupacion-contenedor .card-disponible .card-numero,
+.ocupacion-contenedor .card-disponibles .card-numero {
+    color: var(--green-text);
+}
+
+.zona-bloque {
+    margin-bottom: 28px;
+}
+
+.espacio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+    gap: 6px;
+    max-width: 640px;
+}
+
+.espacio-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border: 1px solid;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.espacio-item.disponible {
+    background: var(--green-dim);
+    color: var(--green-text);
+    border-color: var(--green);
+}
+
+.espacio-item.ocupado {
+    background: var(--red-dim);
+    color: var(--red-text);
+    border-color: var(--red);
+}
