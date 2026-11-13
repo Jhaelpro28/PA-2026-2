@@ -1,25 +1,23 @@
 package proyecto_aula.PA.controlador;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import proyecto_aula.PA.modelo.Registro;
-import proyecto_aula.PA.repositorio.RegistroRepository;
+import proyecto_aula.PA.servicio.ResumenService; 
+
 @Controller 
 public class ResumenController {
     
     @Autowired 
-    private RegistroRepository registroRepository;
-
+    private ResumenService resumenService;
 
     @GetMapping("/resumen")
     public String resumen(
@@ -27,27 +25,13 @@ public class ResumenController {
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta,
         Model model
     ){
-        List<Registro> cerrados = new ArrayList<>();
-        for (Registro r : registroRepository.findAll()){
-            if(r.getHoraSalida() != null){
-                continue;
-            }
-            LocalDate dia = r.getHoraSalida().toLocalDate();
-            boolean despuesDeDesde = (desde == null) || !dia.isBefore(desde);
-            boolean antesDeHasta = (hasta == null) || !dia.isAfter(hasta);
-            if(despuesDeDesde && antesDeHasta){
-                cerrados.add(r);
-            }
-        }
-        double totalRecaudado = 0;
-        long totalMinutos = 0;
-        for(Registro r : cerrados){
-            totalRecaudado += r.getValorPagado();
-            totalMinutos += Duration.between(r.getHoraEntrada(), r.getHoraSalida()).toMinutes();
-        }
+        
+        List<Registro> cerrados = resumenService.obtenerRegistroCerradosFiltrados(desde, hasta);
+        
+        double totalRecaudado = resumenService.calcularTotalRecaudado(cerrados);
+        
         int total = cerrados.size();
-        long promedio = (total == 0) ? 0 : totalMinutos / total;
-        String promedioEstancia = (promedio / 60 ) + "h " + (promedio % 60) + "m";
+        String promedioEstancia = resumenService.calcularPromedioEstancia(cerrados);
 
         model.addAttribute("totalVehiculos", total);
         model.addAttribute("totalRecaudo", (long) totalRecaudado);

@@ -419,3 +419,11 @@ tbody tr:hover {
         transition: none !important;
     }
 }
+.escaner-placa img,
+.escaner-placa canvas {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    border: 1px solid var(--line-600);
+    border-radius: 8px;
+}
