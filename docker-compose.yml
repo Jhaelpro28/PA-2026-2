@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: sigopark_db
+    environment:
+      MYSQL_DATABASE: sigoparkdb
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  placas-service:
+    build: ./placas-service
+    container_name: sigopark_placas
+    ports:
+      - "5001:5001"
+    restart: always
+
+  app:
+    build: .
+    container_name: sigopark_backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/sigoparkdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword
+    depends_on:
+      db:
+        condition: service_healthy
+      placas-service:
+        condition: service_started
+
+volumes:
+  mysql_data:
