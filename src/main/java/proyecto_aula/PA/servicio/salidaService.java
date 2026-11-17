@@ -55,8 +55,6 @@ public class SalidaService {
                 return 3000.0;
             case MOTO:
                 return 2000.0;
-            case BICICLETA:
-                return 1000.0;
             default:
                 return 0.0;
         }

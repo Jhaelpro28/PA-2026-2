@@ -1,13 +1,13 @@
 package proyecto_aula.PA.modelo;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 @Entity
 public class Vehiculo {
     
@@ -16,6 +16,7 @@ public class Vehiculo {
     private Long id;
     private String placa;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoVehiculo tipo;
 
     public Vehiculo(){}
