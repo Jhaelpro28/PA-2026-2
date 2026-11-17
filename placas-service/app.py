@@ -30,6 +30,5 @@ def demasiado_grande(_):
     return jsonify({"ok": False, "codigo": "IMAGEN_GRANDE", "mensaje": "La imagen supera 10 MB."}), 413
 
 
-if __name__ == "__main__":
-    reconocedor.obtener_lector()                # descarga/carga modelos al iniciar
-    app.run(host="127.0.0.1", port=5001)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5001, debug=False)
