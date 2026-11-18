@@ -39,4 +39,8 @@ public class Vehiculo {
     public void setTipo(TipoVehiculo tipo){
         this.tipo = tipo;
     }
+
+    public Vehiculo orElse(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

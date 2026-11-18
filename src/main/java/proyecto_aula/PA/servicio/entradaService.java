@@ -21,7 +21,7 @@ public class EntradaService {
 
 
 
-
+    
 
     @Autowired 
     private VehiculoRepository vehiculoRepository;
@@ -34,6 +34,36 @@ public class EntradaService {
 
     @Autowired
     private ZonaRepository zonaRepository;
+
+    public void registrarEntrada(String placaPlana, String tipoSeleccionado, Long zonaID){
+
+        String placa = placaPlana != null ? placaPlana.toUpperCase().trim() : "";
+
+        boolean esCarroValido = placa.matches("^[A-Z]{3}[0-9]{3}$");
+        boolean esMotoValida = placa.matches("^[A-Z]{3}[0-9]{2}[A-Z]$");
+
+        if(!esCarroValido && esMotoValida){
+            throw new IllegalArgumentException("La placa ingresada no es válida para un carro o moto.");
+
+        }
+        Vehiculo vehiculo = vehiculoRepository.findByPlaca(placa).orElse(null);
+
+        if(vehiculo != null){
+            if(!vehiculo.getTipo().name().equalsIgnoreCase(tipoSeleccionado)){
+                throw new IllegalArgumentException("El tipo de vehículo no coincide con la placa ingresada.");
+            }
+        }else{
+            vehiculo = new Vehiculo();
+            vehiculo.setPlaca(placaPlana);
+            vehiculo.setTipo(TipoVehiculo.valueOf(tipoSeleccionado.toUpperCase()));
+            vehiculoRepository.save(vehiculo);
+        }
+        boolean vehiculoAdentro = registroRepository.existsByVehiculoPlacaAndHoraSalidaIsNull(placaPlana);
+
+            if (vehiculoAdentro) {
+                throw new IllegalStateException("Esta placa ya ha sido ingresada.");
+        }
+    }
 
     public Registro registrarEntrada(String placa, TipoVehiculo tipo, Long zonaId){
         Registro activo = registroRepository.findByVehiculo_PlacaAndHoraSalidaIsNull(placa);
@@ -67,5 +97,6 @@ public class EntradaService {
 
         return registro;
     }
+
 
 }
