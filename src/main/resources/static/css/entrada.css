@@ -1,34 +1,54 @@
-/* Pagina de registro de entrada (templates/view/entrada.html): bloque de la camara.
-   Enlazar despues de base.css. */
+@media (min-width: 860px) {
+  main {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 24px;
+    align-items: start;
+    margin-top: 22px;
+  }
 
-.camara-bloque {
-    max-width: 640px;
-    margin-bottom: 24px;
-    padding: 20px 22px;
-    background: var(--asphalt-800);
-    border: 1px solid var(--line-600);
+  main > h1,
+  main > .mensaje-exito,
+  main > .mensaje-error {
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
 }
 
-.camara-contenedor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 180px;
-    margin-bottom: 14px;
-    padding: 16px;
-    background: var(--asphalt-700);
-    border: 1.5px dashed var(--line-500);
-    text-align: center;
+/* Columna izquierda: escáner / cámara con aire limpio debajo del título */
+main > [class*="escaner"],
+main > [id*="escaner"] {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-top: 2px;
+  margin-bottom: 0;
+  box-shadow: var(--shadow);
 }
 
-video {
-    max-width: 100%;
-    max-height: 320px;
+/* Columna derecha: formulario de entrada */
+main > form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--orange);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 2px;
+  box-shadow: var(--shadow);
 }
 
-.camara-estado {
-    margin: 8px 0 0;
-    color: var(--text-500);
-    font-size: 13px;
+main > form .btn-primario {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  font-size: 1rem;
+}
+
+@media (max-width: 859px) {
+  main > [class*="escaner"],
+  main > [id*="escaner"],
+  main > form {
+    margin-top: 0;
+  }
 }

@@ -1,38 +1,137 @@
+@media (min-width: 860px) {
+  main {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 18px 24px;
+    align-items: start;
+    margin-top: 22px;
+  }
 
+  main > h1,
+  main > .mensaje-exito,
+  main > .mensaje-error {
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
+}
 
+/* Columna izquierda: cámara / lectura de placa */
 .camara-bloque {
-    max-width: 640px;
-    margin-bottom: 24px;
-    padding: 20px 22px;
-    background: var(--asphalt-800);
-    border: 1px solid var(--line-600);
+  grid-column: 1;
+  grid-row: 2;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-top: 2px;
+  margin-bottom: 0;
+  box-shadow: var(--shadow);
 }
 
-.camara-contenedor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 180px;
-    margin-bottom: 14px;
-    padding: 16px;
-    background: var(--asphalt-700);
-    border: 1.5px dashed var(--line-500);
-    text-align: center;
+.camara-bloque video,
+.camara-bloque canvas,
+.camara-bloque img {
+  margin-top: 10px;
+  max-height: 270px;
 }
 
-video {
-    max-width: 100%;
-    max-height: 320px;
+/* Contenedor de la columna derecha */
+@media (min-width: 860px) {
+  main > :not(h1):not(.mensaje-exito):not(.mensaje-error):not(.camara-bloque) {
+    grid-column: 2;
+  }
 }
 
-.camara-estado {
-    margin: 8px 0 0;
-    color: var(--text-500);
-    font-size: 13px;
+/* Bloques de la derecha: Placa reconocida / Confirmar placa, Buscador y Detalle de salida */
+.escaner-confirmar,
+.placa-reconocida,
+[class*="reconocida"],
+main > .filtro-form,
+main > section:not(.camara-bloque),
+main > form:not(.filtro-form) {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--orange);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-top: 2px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+
+/* Acomoda el input y el botón "Buscar" en línea cuando están juntos */
+.filtro-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.filtro-form .form-group {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 0;
+}
+
+.filtro-form button,
+.filtro-form .btn-primario,
+.filtro-form .btn-secundario {
+  height: 44px;
+  padding: 0 22px;
+  white-space: nowrap;
+}
+
+/* Botón confirmar placa / confirmar salida */
+.escaner-confirmar button,
+.placa-reconocida button,
+[class*="reconocida"] button,
+main > section:not(.camara-bloque) form .btn-primario {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 18px;
+  font-size: 0.98rem;
+}
+
+/* Tabla de estancia y valor a pagar */
+.tabla-detalle {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  font-size: 0.94rem;
+}
+
+.tabla-detalle td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
 }
 
 .tabla-detalle td:first-child {
-    width: 44%;
-    color: var(--text-500);
+  color: var(--text-muted);
+  font-weight: 600;
+  width: 42%;
+}
+
+.tabla-detalle td:last-child {
+  font-weight: 700;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabla-detalle tr:last-child td:last-child {
+  color: var(--orange);
+  font-size: 1.2rem;
+}
+
+@media (max-width: 859px) {
+  .camara-bloque,
+  .escaner-confirmar,
+  .placa-reconocida,
+  [class*="reconocida"],
+  main > .filtro-form,
+  main > section:not(.camara-bloque),
+  main > form:not(.filtro-form) {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    margin-top: 0;
+  }
 }

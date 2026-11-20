@@ -1,46 +1,43 @@
-/* Pagina de ocupacion (templates/view/ocupacion.html): zonas y espacios.
-   Enlazar despues de base.css. */
-
-.ocupacion-contenedor .card-ocupados .card-numero {
-    color: var(--red-text);
-}
-
-.ocupacion-contenedor .card-disponible .card-numero,
-.ocupacion-contenedor .card-disponibles .card-numero {
-    color: var(--green-text);
-}
-
 .zona-bloque {
-    margin-bottom: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.zona-bloque h2 {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
 }
 
 .espacio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
-    gap: 6px;
-    max-width: 640px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 12px;
 }
 
 .espacio-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1;
-    border: 1px solid;
-    border-radius: 2px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 600;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .espacio-item.disponible {
-    background: var(--green-dim);
-    color: var(--green-text);
-    border-color: var(--green);
+  background-color: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success-border);
 }
 
 .espacio-item.ocupado {
-    background: var(--red-dim);
-    color: var(--red-text);
-    border-color: var(--red);
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger-border);
 }
