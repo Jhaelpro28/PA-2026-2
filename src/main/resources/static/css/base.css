@@ -107,7 +107,7 @@ nav a[href*="logout"],
 header button[type="submit"],
 nav button[type="submit"] {
   background-color: var(--orange);
-  color: #09090b;
+  color: #090909;
   padding: 7px 14px;
   border-radius: 8px;
   font-weight: 700;
